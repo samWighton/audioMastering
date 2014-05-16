@@ -59,12 +59,12 @@ def calculateFrequency(givenData,points,lowestFrequency = 50):
         if i % 1000 == 999:
             drawCumulative(givenData, gaps, points[i])
             gaps = []
-        for j in range(i,i+100):#10 is arbitrary. todo, make this line better
+        for j in range(i+1,i+3):#3 is arbitrary. todo, make this line better
             if j >= len(points):
                 break
-            if j - i > givenData.sampleRate / lowestFrequency:
+            if points[j] - points[i] > givenData.sampleRate / lowestFrequency:
                 break
-            gaps.append(j-i)
+            gaps.append(points[j] - points[i])
     #print('number of gaps = ', len(gaps))
             
 def drawCumulative(givenData, gaps, startAt):
@@ -79,7 +79,7 @@ def drawCumulative(givenData, gaps, startAt):
     for i in range(startAt, startAt+1000):
         counter = 0
         for j in range(len(gaps)):
-            if gaps[j] > i - startAt:
+            if gaps[j] < i - startAt:
                 counter+=1
         tempTrack[i] = int(pow(2,givenData.bitDepth - 2) * counter / len(gaps))#
     givenData.tracks = [tempTrack[i] for i in range(givenData.sampleCount)]
