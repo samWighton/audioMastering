@@ -1,10 +1,31 @@
 The aim of this project is to create a 'process in the cloud' set of tools for audio mastering.
 
+Expected user experience
+  -Upload audio files
+  -In a node based GUI, connect filters and effects to audio tracks
+  -Listen to the edited audio as changes are made to settings
+    -Audio is streamed from the server
+  -Download modified audio files
+
+------------------------------------------------------------------------------------------------
+
 First step is a proof of concept.
   -Import audio of more than one person talking
   -Identify each person 
   -Apply a different gain level to each person
 
+------------------------------------------------------------------------------------------------
+
+Notes on how the program will work
+  -Main data structure is the 'track' (or groups of multiple tracks)
+    -Uploaded files become tracks
+    -Tracks that should be processed together (eg stereo tracks) are put in a 'group'
+  -'Commands' take various input, then output a track (or group)
+  -'Commands' are joined together to process the audio as required
+  -All data is referred to using identifiers
+  -The server processes the audio as required
+
+------------------------------------------------------------------------------------------------
 
 Notes on data structure
   -All data is based around 4 structures
@@ -31,20 +52,4 @@ Notes on data structure
     -A structured set of data required by a function
     -For example, vocal characteristics of several people
 
-
-Notes on how the program will work
-  -On the client side
-    -Audio files can be uploaded
-    -Tools (functions) can be added and dragged around
-    -Input files are connected to the tools in the desired order
-    -Output icons are connected at the end of a chain
-    -Final output can be downloaded
-
-  -On the Server side
-    -Uploaded files become tracks
-    -Multi track files become groups
-    -As changes are made on the client side, update output audio track
-    -The output of every function becomes a new track (or group)
-    -Only make updates to the required tracks
-    -Stream audio to user when able so user is able to hear changes as soon as possible
-
+------------------------------------------------------------------------------------------------
